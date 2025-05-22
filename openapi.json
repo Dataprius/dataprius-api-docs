@@ -1,0 +1,5063 @@
+{
+	"info": {
+		"_postman_id": "244ea244-c2e5-48f8-b82f-2723038262d5",
+		"name": "Dataprius API v2",
+		"description": "<img src=\"https://content.pstmn.io/907ee022-59b4-43ba-9a30-ba52e2d2b74b/bG9nby0yODB4MTAwLnBuZw==\">\n\nDataprius offers a different way to work with files in the Cloud. It is designed for companies. It allows you to work with company files without synchronizing, without conflicts, with multiple Users connected at the same time.\n\nDataprius web site: [[English]](https://dataprius.com/en/home.html) [[Spanish]](https://dataprius.com)  \nContact Support: [info@dataprius.com](https://mailto:info@dataprius.com)\n\n## Introduction\n\nDataprius's API is organized around REST. It uses built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients. JSON is returned in all API responses, including errors.\n\n## Getting started\n\nYou will need a Dataprius account and API keys. If you do not have a Dataprius account, go to the website, download and install the free version. You can download from the web in english or spanish.\n\n- [Dataprius downloads in english](https://dataprius.com/en/downloads)\n    \n- [Dataprius downloads in spanish](https://dataprius.com/descargas)\n    \n\nOnce the application is installed. Go to the button in the lower left corner.\n\n- Click Start -> Configuration -> API Keys\n    \n\nThere you can request API keys. There is a activation process.  \nDataprius will send you an email when your request have been validated, then your keys will be available. After that, you can see API Keys on the same window in Configuration.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27443231",
+		"_collection_link": "https://www.postman.com/dataprius-cloud/dataprius/collection/a9kvcfs/dataprius-api-v2?action=share&source=collection_link&creator=27443231"
+	},
+	"item": [
+		{
+			"name": "folders",
+			"item": [
+				{
+					"name": "list",
+					"item": [
+						{
+							"name": "List root folder",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Page\": \"1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/list/0",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"list",
+										"0"
+									]
+								},
+								"description": "List root folder of your Dataprius account. You can get the subfolder references to navigate."
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"Page\": \"1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/folders/list/0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"folders",
+												"list",
+												"0"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"data\": [\n    {\n      \"ID\": \"X3lXnB\",\n      \"Parent\": \"0\",\n      \"Name\": \"Administration\",\n      \"Path\": \"FOLDERS/Administration\"\n    },\n    {\n      \"ID\": \"D5Dz0G\",\n      \"Parent\": \"0\",\n      \"Name\": \"Commercial office\",\n      \"Path\": \"FOLDERS/Commercial office\"\n    },\n    {\n      \"ID\": \"6GlAKy\",\n      \"Parent\": \"0\",\n      \"Name\": \"Proyects\",\n      \"Path\": \"FOLDERS/Proyects\"\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"total_pages\": 1,\n      \"current_page\": 1,\n      \"total_results\": 3\n    }\n  }\n}"
+								},
+								{
+									"name": "Invalid page number",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"Page\": \"1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/folders/list/0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"folders",
+												"list",
+												"0"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"BAD_PAGE\",\n    \"error_message\": \"Invalid value for Page number. Greater than total pages.\"\n  }\n}"
+								},
+								{
+									"name": "The Bearer access token expired",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"Page\": \"1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/folders/list/0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"folders",
+												"list",
+												"0"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+								},
+								{
+									"name": "Too many requests from this IP, please try again in a few minutes.",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"Page\": \"1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/folders/list/0",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"folders",
+												"list",
+												"0"
+											]
+										}
+									},
+									"status": "Too Many Requests",
+									"code": 429,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+								}
+							]
+						},
+						{
+							"name": "List folders",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Page\": \"1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/list/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"list",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								},
+								"description": "List a folder of your Dataprius account. You can get the subfolder references to navigate."
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"Page\": \"1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/folders/list/:idFolder",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"folders",
+												"list",
+												":idFolder"
+											],
+											"variable": [
+												{
+													"key": "idFolder",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Folder ID"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"data\": [\n    {\n      \"ID\": \"X3lXnB\",\n      \"Parent\": \"0vpZeO\",\n      \"Name\": \"Administration\",\n      \"Path\": \"FOLDERS/Administration\",\n      \"Created\": \"2024-01-17T17:43:46.000Z\",\n      \"Modified\": \"2024-03-25T12:31:16.000Z\"\n    },\n    {\n      \"ID\": \"xWOB8W\",\n      \"Parent\": \"0vpZeO\",\n      \"Name\": \"Billing\",\n      \"Path\": \"FOLDERS/Billing\",\n      \"Created\": \"2024-01-17T17:43:46.000Z\",\n      \"Modified\": \"2024-03-25T12:31:16.000Z\"\n    },\n    {\n      \"ID\": \"6GlAKy\",\n      \"Parent\": \"0vpZeO\",\n      \"Name\": \"Proyects\",\n      \"Path\": \"FOLDERS/Proyects\",\n      \"Created\": \"2024-01-17T17:43:46.000Z\",\n      \"Modified\": \"2024-03-25T12:31:16.000Z\"\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"total_pages\": 1,\n      \"current_page\": 1,\n      \"total_results\": 3\n    }\n  }\n}"
+								},
+								{
+									"name": "Invalid page number",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"Page\": \"1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/folders/list/:idFolder",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"folders",
+												"list",
+												":idFolder"
+											],
+											"variable": [
+												{
+													"key": "idFolder",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Folder ID"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"BAD_PAGE\",\n    \"error_message\": \"Invalid value for Page number. Greater than total pages.\"\n  }\n}"
+								},
+								{
+									"name": "The Bearer access token expired",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"Page\": \"1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/folders/list/:idFolder",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"folders",
+												"list",
+												":idFolder"
+											],
+											"variable": [
+												{
+													"key": "idFolder",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Folder ID"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+								},
+								{
+									"name": "Folder does not exist",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"Page\": \"1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/folders/list/:idFolder",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"folders",
+												"list",
+												":idFolder"
+											],
+											"variable": [
+												{
+													"key": "idFolder",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Folder ID"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"FOLDER_NOT_EXISTS\",\n    \"error_message\": \"This id folder does not exist.\"\n  }\n}"
+								},
+								{
+									"name": "Too many requests from this IP, please try again in a few minutes.",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"Page\": \"1\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/folders/list/:idFolder",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"folders",
+												"list",
+												":idFolder"
+											],
+											"variable": [
+												{
+													"key": "idFolder",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Folder ID"
+												}
+											]
+										}
+									},
+									"status": "Too Many Requests",
+									"code": 429,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+								}
+							]
+						}
+					],
+					"description": "List root folders or subfolders"
+				},
+				{
+					"name": "List files",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Page\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/folders/files/:idFolder",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"folders",
+								"files",
+								":idFolder"
+							],
+							"variable": [
+								{
+									"key": "idFolder",
+									"value": "magna mollit culpa sunt",
+									"description": "(Required) Folder ID"
+								}
+							]
+						},
+						"description": "Get the files contained in the folder."
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Page\": \"1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/files/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"files",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": [\n    {\n      \"ID\": \"1nVEy3\",\n      \"Folder\": \"0vpZeO\",\n      \"Name\": \"cloud computing.xlsx\"\n    },\n    {\n      \"ID\": \"QzpjPo\",\n      \"Folder\": \"0vpZeO\",\n      \"Name\": \"Dossier.docx\"\n    },\n    {\n      \"ID\": \"G2nn9o\",\n      \"Folder\": \"0vpZeO\",\n      \"Name\": \"hello.txt\"\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"total_pages\": 1,\n      \"current_page\": 1,\n      \"total_results\": 3\n    }\n  }\n}"
+						},
+						{
+							"name": "Invalid page number",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Page\": \"1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/files/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"files",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BAD_PAGE\",\n    \"error_message\": \"Invalid value for Page number. Greater than total pages.\"\n  }\n}"
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Page\": \"1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/files/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"files",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "Folder does not exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Page\": \"1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/files/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"files",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FOLDER_NOT_EXISTS\",\n    \"error_message\": \"This id folder does not exist.\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Page\": \"1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/files/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"files",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Folder info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/folders/info/:idFolder",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"folders",
+								"info",
+								":idFolder"
+							],
+							"variable": [
+								{
+									"key": "idFolder",
+									"value": "magna mollit culpa sunt",
+									"description": "(Required) Folder ID"
+								}
+							]
+						},
+						"description": "Get folder information."
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/folders/info/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"info",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": [\n    {\n      \"ID\": \"6GlAKy\",\n      \"Parent\": \"0vpZeO\",\n      \"Name\": \"Proyects\",\n      \"Path\": \"FOLDERS/Proyects\",\n      \"Created\": \"2024-01-17T17:43:46.000Z\",\n      \"Modified\": \"2024-03-25T12:31:16.000Z\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/folders/info/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"info",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "Folder does not exist",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/folders/info/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"info",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FOLDER_NOT_EXISTS\",\n    \"error_message\": \"This id folder does not exist.\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/folders/info/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"info",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get folder path",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Path\": \"FOLDERS/Proyects\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/folders/getpath",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"folders",
+								"getpath"
+							]
+						},
+						"description": "Get folder information from a Path parameter"
+					},
+					"response": [
+						{
+							"name": "Folder information",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "magna mollit culpa sunt",
+										"description": "{{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Path\": \"FOLDERS/Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/getpath",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"getpath"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": [\n    {\n      \"ID\": \"6GlAKy\",\n      \"Parent\": \"0vpZeO\",\n      \"Name\": \"Proyects\",\n      \"Path\": \"FOLDERS/Proyects\",\n      \"Created\": \"2024-01-17T17:43:46.000Z\",\n      \"Modified\": \"2024-03-25T12:31:16.000Z\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "magna mollit culpa sunt",
+										"description": "{{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Path\": \"FOLDERS/Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/getpath",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"getpath"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "Web user does not exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "magna mollit culpa sunt",
+										"description": "{{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Path\": \"FOLDERS/Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/getpath",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"getpath"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"USER_NOT_EXISTS\",\n    \"error_message\": \"This id user does not exist or was deleted.\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "magna mollit culpa sunt",
+										"description": "{{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Path\": \"FOLDERS/Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/getpath",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"getpath"
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create folder",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Name\": \"Proyects\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/folders/create/:idFolder",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"folders",
+								"create",
+								":idFolder"
+							],
+							"variable": [
+								{
+									"key": "idFolder",
+									"value": "magna mollit culpa sunt",
+									"description": "(Required) Folder ID"
+								}
+							]
+						},
+						"description": "Create a subfolder inside the folder passed as parameter.\nThrows an error if a folder with same name already exists. Forbidden chars in Windows are not allowed.\n\nForbidden chars\n\n    < (less than)\n    > (greater than)\n    : (colon)\n    \" (double quote)\n    / (forward slash)\n    \\ (backslash)\n    | (vertical bar or pipe)\n    ? (question mark)\n    * (asterisk)\n"
+					},
+					"response": [
+						{
+							"name": "Folder information",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/create/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"create",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": [\n    {\n      \"ID\": \"6GlAKy\",\n      \"Parent\": \"0vpZeO\",\n      \"Name\": \"Proyects\",\n      \"Path\": \"FOLDERS/Proyects\",\n      \"Created\": \"2024-01-17T17:43:46.000Z\",\n      \"Modified\": \"2024-03-25T12:31:16.000Z\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "Folder already exists",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/create/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"create",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FOLDER_EXISTS\",\n    \"error_message\": \"Error creating folder: FolderName. The folder already exists.\"\n  }\n}"
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/create/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"create",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "Folder does not exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/create/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"create",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FOLDER_NOT_EXISTS\",\n    \"error_message\": \"This id folder does not exist.\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/create/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"create",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create folder path",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Path\": \"FOLDERS/Proyects\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/folders/createpath",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"folders",
+								"createpath"
+							]
+						},
+						"description": "Creates all the folders of a path given as a parameter. Throws an error if a folder with same name already exists. Forbidden chars in Windows are not allowed.\n\nForbidden chars\n\n    < (less than)\n    > (greater than)\n    : (colon)\n    \" (double quote)\n    / (forward slash)\n    \\ (backslash)\n    | (vertical bar or pipe)\n    ? (question mark)\n    * (asterisk)\n"
+					},
+					"response": [
+						{
+							"name": "Folder information",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Path\": \"FOLDERS/Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/createpath",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"createpath"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": [\n    {\n      \"ID\": \"6GlAKy\",\n      \"Parent\": \"0vpZeO\",\n      \"Name\": \"Proyects\",\n      \"Path\": \"FOLDERS/Proyects\",\n      \"Created\": \"2024-01-17T17:43:46.000Z\",\n      \"Modified\": \"2024-03-25T12:31:16.000Z\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The folder already exists.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Path\": \"FOLDERS/Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/createpath",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"createpath"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FOLDER_EXISTS\",\n    \"error_message\": \"Error creating folder: FolderName. The folder already exists.\"\n  }\n}"
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Path\": \"FOLDERS/Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/createpath",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"createpath"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Path\": \"FOLDERS/Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/createpath",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"createpath"
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Rename folder",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"NewName\": \"Proyects\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/folders/rename/:idFolder",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"folders",
+								"rename",
+								":idFolder"
+							],
+							"variable": [
+								{
+									"key": "idFolder",
+									"value": "magna mollit culpa sunt",
+									"description": "(Required) Folder ID"
+								}
+							]
+						},
+						"description": "Rename folder.\nThrows an error if a folder with same name already exists. Forbidden chars in Windows are not allowed.\n\nForbidden chars\n\n    < (less than)\n    > (greater than)\n    : (colon)\n    \" (double quote)\n    / (forward slash)\n    \\ (backslash)\n    | (vertical bar or pipe)\n    ? (question mark)\n    * (asterisk)\n"
+					},
+					"response": [
+						{
+							"name": "Folder information",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"NewName\": \"Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/rename/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"rename",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Accepted",
+							"code": 202,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": [\n    {\n      \"ID\": \"6GlAKy\",\n      \"Parent\": \"0vpZeO\",\n      \"Name\": \"Proyects\",\n      \"Path\": \"FOLDERS/Proyects\",\n      \"Created\": \"2024-01-17T17:43:46.000Z\",\n      \"Modified\": \"2024-03-25T12:31:16.000Z\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "The folder already exists.",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"NewName\": \"Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/rename/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"rename",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FOLDER_EXISTS\",\n    \"error_message\": \"The folder new name already exists.\"\n  }\n}"
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"NewName\": \"Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/rename/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"rename",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "Folder does not exist",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"NewName\": \"Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/rename/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"rename",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FOLDER_NOT_EXISTS\",\n    \"error_message\": \"This id folder does not exist.\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"NewName\": \"Proyects\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/rename/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"rename",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete folder",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/folders/delete/:idFolder",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"folders",
+								"delete",
+								":idFolder"
+							],
+							"variable": [
+								{
+									"key": "idFolder",
+									"value": "magna mollit culpa sunt",
+									"description": "(Required) Folder ID"
+								}
+							]
+						},
+						"description": "Delete folder\nThe folder not permanently deleted. The folder goes to the recycle bin of the Dataprius account."
+					},
+					"response": [
+						{
+							"name": "No Content. Delete successful.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/delete/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"delete",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Error deleting folder",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/delete/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"delete",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"DELETE_FOLDER\",\n    \"error_message\": \"Error deleting folder.\"\n  }\n}"
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/delete/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"delete",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "Folder does not exist",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/delete/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"delete",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FOLDER_NOT_EXISTS\",\n    \"error_message\": \"This id folder does not exist.\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{baseUrl}}/folders/delete/:idFolder",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"folders",
+										"delete",
+										":idFolder"
+									],
+									"variable": [
+										{
+											"key": "idFolder",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Folder ID"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				}
+			],
+			"description": "Folders management.\n\nManage and organize your company's folder structure in the cloud. This section allows you to create, rename, delete, and retrieve folders. Ensure a structured and secure environment for your organization's documents."
+		},
+		{
+			"name": "files",
+			"item": [
+				{
+					"name": "File upload",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "IDFolder",
+									"value": "string",
+									"description": "(Required) ",
+									"type": "text"
+								},
+								{
+									"key": "file",
+									"description": "(Required) ",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/files/upload",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"files",
+								"upload"
+							]
+						},
+						"description": "Upload a file into a folder.\n\nIf the file already exists, it will be overwritten. An autocopy (backup copy of the previous version) will be generated at a minimum interval of 30 minutes.\n\nMaximum file size is 2 gigabytes."
+					},
+					"response": [
+						{
+							"name": "File information",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "IDFolder",
+											"value": "string",
+											"description": "(Required) ",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"description": "(Required) ",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/files/upload",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"upload"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": {\n    \"ID\": \"LvorAgR\",\n    \"Folder\": \"jO8O5n\",\n    \"Name\": \"Dossier.docx\",\n    \"Size\": 4,\n    \"Created\": \"2024-01-17T17:43:47.000Z\",\n    \"Modified\": \"2021-06-07T10:24:30.000Z\",\n    \"Accessed\": \"2024-01-17T17:43:47.000Z\"\n  }\n}"
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "IDFolder",
+											"value": "string",
+											"description": "(Required) ",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"description": "(Required) ",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/files/upload",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"upload"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "Folder does not exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "IDFolder",
+											"value": "string",
+											"description": "(Required) ",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"description": "(Required) ",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/files/upload",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"upload"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FOLDER_NOT_EXISTS\",\n    \"error_message\": \"This id folder does not exist.\"\n  }\n}"
+						},
+						{
+							"name": "Maximum file size exceeded. Maximum 2 gigabytes.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "IDFolder",
+											"value": "string",
+											"description": "(Required) ",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"description": "(Required) ",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/files/upload",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"upload"
+									]
+								}
+							},
+							"status": "Request Entity Too Large",
+							"code": 413,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"MAX_SIZE\",\n    \"error_message\": \"Maximum file size exceeded. Maximum 2 gigabytes.\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "IDFolder",
+											"value": "string",
+											"description": "(Required) ",
+											"type": "text"
+										},
+										{
+											"key": "file",
+											"description": "(Required) ",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/files/upload",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"upload"
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "File info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/files/info/:idFile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"files",
+								"info",
+								":idFile"
+							],
+							"variable": [
+								{
+									"key": "idFile",
+									"value": "5ejdGqK",
+									"description": "(Required) File ID"
+								}
+							]
+						},
+						"description": "Get file information."
+					},
+					"response": [
+						{
+							"name": "File information",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/files/info/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"info",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": {\n    \"ID\": \"LvorAgR\",\n    \"Folder\": \"jO8O5n\",\n    \"Name\": \"Dossier.docx\",\n    \"Size\": 4,\n    \"Created\": \"2024-01-17T17:43:47.000Z\",\n    \"Modified\": \"2021-06-07T10:24:30.000Z\",\n    \"Accessed\": \"2024-01-17T17:43:47.000Z\"\n  }\n}"
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/files/info/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"info",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "File does not exists",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/files/info/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"info",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FILE_NOT_EXISTS\",\n    \"error_message\": \"This id file does not exist or was deleted.\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/files/info/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"info",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "File download",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/octet-stream"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/files/download/:idFile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"files",
+								"download",
+								":idFile"
+							],
+							"variable": [
+								{
+									"key": "idFile",
+									"value": "5ejdGqK",
+									"description": "(Required) File ID"
+								}
+							]
+						},
+						"description": "Download file.\r\n\r\nExample:\r\n```json\r\ncurl -X GET https://api.v2.dataprius.com/files/download/5ejdGqK \\\r\n    -H \"Accept: application/octet-stream, application/json\" \\\r\n    -H \"Authorization: Bearer xxxxxxx\" \\\r\n    -H \"Content-Type: application/octet-stream\" \\\r\n    -H \"Content-Disposition: attachment;\" \\\r\n    --output \"c:\\Users\\John\\Downloads\\Dossier.docx\"\r\n```"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/octet-stream"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/files/download/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"download",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type: application/octet-stream",
+									"value": "magna mollit culpa sunt",
+									"description": ""
+								},
+								{
+									"key": "Content-Disposition: attachment; filename=\"Dossier.docx\"",
+									"value": "magna mollit culpa sunt",
+									"description": ""
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/octet-stream"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/files/download/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"download",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "File does not exists",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/files/download/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"download",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FILE_NOT_EXISTS\",\n    \"error_message\": \"This id file does not exist or was deleted.\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/files/download/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"download",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "File rename",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"NewName\": \"Dossier.docx\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/files/rename/:idFile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"files",
+								"rename",
+								":idFile"
+							],
+							"variable": [
+								{
+									"key": "idFile",
+									"value": "5ejdGqK",
+									"description": "(Required) File ID"
+								}
+							]
+						},
+						"description": "Rename file.\nThrows an error if a file with same name already exists. Forbidden chars in Windows are not allowed.\n\nForbidden chars\n\n    < (less than)\n    > (greater than)\n    : (colon)\n    \" (double quote)\n    / (forward slash)\n    \\ (backslash)\n    | (vertical bar or pipe)\n    ? (question mark)\n    * (asterisk)\n"
+					},
+					"response": [
+						{
+							"name": "File information",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"NewName\": \"Dossier.docx\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/files/rename/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"rename",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Accepted",
+							"code": 202,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": {\n    \"ID\": \"LvorAgR\",\n    \"Folder\": \"jO8O5n\",\n    \"Name\": \"Dossier.docx\",\n    \"Size\": 4,\n    \"Created\": \"2024-01-17T17:43:47.000Z\",\n    \"Modified\": \"2021-06-07T10:24:30.000Z\",\n    \"Accessed\": \"2024-01-17T17:43:47.000Z\"\n  }\n}"
+						},
+						{
+							"name": "File already exists or the file is opened by another user.",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"NewName\": \"Dossier.docx\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/files/rename/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"rename",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FILE_BLOCKED\",\n    \"error_message\": \"Error renaming file. Blocked file.\"\n  }\n}"
+						},
+						{
+							"name": "File does not exists",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"NewName\": \"Dossier.docx\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/files/rename/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"rename",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FILE_NOT_EXISTS\",\n    \"error_message\": \"This id file does not exist or was deleted.\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"NewName\": \"Dossier.docx\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/files/rename/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"rename",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete file",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/files/delete/:idFile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"files",
+								"delete",
+								":idFile"
+							],
+							"variable": [
+								{
+									"key": "idFile",
+									"value": "5ejdGqK",
+									"description": "(Required) File ID"
+								}
+							]
+						},
+						"description": "Delete file\nThe file is not permanently deleted. The file is sent the recycle bin of the Dataprius account."
+					},
+					"response": [
+						{
+							"name": "No Content. Delete successful.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/files/delete/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"delete",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Error deleting file.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/files/delete/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"delete",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"DELETING_FILE\",\n    \"error_message\": \"Error deleting file.\"\n  }\n}"
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/files/delete/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"delete",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "File does not exists",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/files/delete/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"delete",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FILE_NOT_EXISTS\",\n    \"error_message\": \"This id file does not exist or was deleted.\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/files/delete/:idFile",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"files",
+										"delete",
+										":idFile"
+									],
+									"variable": [
+										{
+											"key": "idFile",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) File ID"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				}
+			],
+			"description": "File Operations\n\nHandle file-related operations within your cloud storage. This section provides endpoints to upload, download, rename, and delete files."
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "{idUser}",
+					"item": [
+						{
+							"name": "Get user",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user/:idUser",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										":idUser"
+									],
+									"variable": [
+										{
+											"key": "idUser",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Web user id"
+										}
+									]
+								},
+								"description": "Get web user information."
+							},
+							"response": [
+								{
+									"name": "Web user information",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:idUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":idUser"
+											],
+											"variable": [
+												{
+													"key": "idUser",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Web user id"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"data\": [\n    {\n      \"ID\": \"7obnZ\",\n      \"Name\": \"Peter\",\n      \"MiddleName\": \"Middle name\",\n      \"LastName\": \"Last name\",\n      \"CreationDate\": \"2023-07-11 18:48:03\",\n      \"LastAccess\": null,\n      \"Mail\": \"a3@a.com\",\n      \"Info\": \"\",\n      \"Telephone1\": \"\",\n      \"Telephone2\": \"\",\n      \"Label1\": \"\",\n      \"Label2\": \"\",\n      \"Label3\": \"\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "The Bearer access token expired",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:idUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":idUser"
+											],
+											"variable": [
+												{
+													"key": "idUser",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Web user id"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+								},
+								{
+									"name": "Web user does not exists",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:idUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":idUser"
+											],
+											"variable": [
+												{
+													"key": "idUser",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Web user id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"USER_NOT_EXISTS\",\n    \"error_message\": \"This id user does not exist or was deleted.\"\n  }\n}"
+								},
+								{
+									"name": "Too many requests from this IP, please try again in a few minutes.",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:idUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":idUser"
+											],
+											"variable": [
+												{
+													"key": "idUser",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Web user id"
+												}
+											]
+										}
+									},
+									"status": "Too Many Requests",
+									"code": 429,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+								}
+							]
+						},
+						{
+							"name": "Modify user",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Ana\",\n  \"MiddleName\": \"Smith\",\n  \"LastName\": \"\",\n  \"Mail\": \"a4@a.com\",\n  \"Password\": \"yourPass\",\n  \"Info\": \"INFO EXAMPLE\",\n  \"Telephone1\": \"3892\",\n  \"Telephone2\": \"\",\n  \"Label1\": \"test api\",\n  \"Label2\": \"\",\n  \"Label3\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user/:idUser",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										":idUser"
+									],
+									"variable": [
+										{
+											"key": "idUser",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Web user id"
+										}
+									]
+								},
+								"description": "Update web user"
+							},
+							"response": [
+								{
+									"name": "Web user information",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"Name\": \"Ana\",\n  \"MiddleName\": \"Smith\",\n  \"LastName\": \"\",\n  \"Mail\": \"a4@a.com\",\n  \"Password\": \"yourPass\",\n  \"Info\": \"INFO EXAMPLE\",\n  \"Telephone1\": \"3892\",\n  \"Telephone2\": \"\",\n  \"Label1\": \"test api\",\n  \"Label2\": \"\",\n  \"Label3\": \"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/user/:idUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":idUser"
+											],
+											"variable": [
+												{
+													"key": "idUser",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Web user id"
+												}
+											]
+										}
+									},
+									"status": "Accepted",
+									"code": 202,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"data\": [\n    {\n      \"ID\": \"7obnZ\",\n      \"Name\": \"Peter\",\n      \"MiddleName\": \"Middle name\",\n      \"LastName\": \"Last name\",\n      \"CreationDate\": \"2023-07-11 18:48:03\",\n      \"LastAccess\": null,\n      \"Mail\": \"a3@a.com\",\n      \"Info\": \"\",\n      \"Telephone1\": \"\",\n      \"Telephone2\": \"\",\n      \"Label1\": \"\",\n      \"Label2\": \"\",\n      \"Label3\": \"\"\n    }\n  ]\n}"
+								},
+								{
+									"name": "The Bearer access token expired",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"Name\": \"Ana\",\n  \"MiddleName\": \"Smith\",\n  \"LastName\": \"\",\n  \"Mail\": \"a4@a.com\",\n  \"Password\": \"yourPass\",\n  \"Info\": \"INFO EXAMPLE\",\n  \"Telephone1\": \"3892\",\n  \"Telephone2\": \"\",\n  \"Label1\": \"test api\",\n  \"Label2\": \"\",\n  \"Label3\": \"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/user/:idUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":idUser"
+											],
+											"variable": [
+												{
+													"key": "idUser",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Web user id"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+								},
+								{
+									"name": "Web user does not exists",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"Name\": \"Ana\",\n  \"MiddleName\": \"Smith\",\n  \"LastName\": \"\",\n  \"Mail\": \"a4@a.com\",\n  \"Password\": \"yourPass\",\n  \"Info\": \"INFO EXAMPLE\",\n  \"Telephone1\": \"3892\",\n  \"Telephone2\": \"\",\n  \"Label1\": \"test api\",\n  \"Label2\": \"\",\n  \"Label3\": \"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/user/:idUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":idUser"
+											],
+											"variable": [
+												{
+													"key": "idUser",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Web user id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"USER_NOT_EXISTS\",\n    \"error_message\": \"This id user does not exist or was deleted.\"\n  }\n}"
+								},
+								{
+									"name": "Too many requests from this IP, please try again in a few minutes.",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"Name\": \"Ana\",\n  \"MiddleName\": \"Smith\",\n  \"LastName\": \"\",\n  \"Mail\": \"a4@a.com\",\n  \"Password\": \"yourPass\",\n  \"Info\": \"INFO EXAMPLE\",\n  \"Telephone1\": \"3892\",\n  \"Telephone2\": \"\",\n  \"Label1\": \"test api\",\n  \"Label2\": \"\",\n  \"Label3\": \"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/user/:idUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":idUser"
+											],
+											"variable": [
+												{
+													"key": "idUser",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Web user id"
+												}
+											]
+										}
+									},
+									"status": "Too Many Requests",
+									"code": 429,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete user",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user/:idUser",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user",
+										":idUser"
+									],
+									"variable": [
+										{
+											"key": "idUser",
+											"value": "magna mollit culpa sunt",
+											"description": "(Required) Web user id"
+										}
+									]
+								},
+								"description": "Delete web user"
+							},
+							"response": [
+								{
+									"name": "No Content. Delete successful.",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:idUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":idUser"
+											],
+											"variable": [
+												{
+													"key": "idUser",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Web user id"
+												}
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "The Bearer access token expired",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:idUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":idUser"
+											],
+											"variable": [
+												{
+													"key": "idUser",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Web user id"
+												}
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+								},
+								{
+									"name": "Web user does not exists",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:idUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":idUser"
+											],
+											"variable": [
+												{
+													"key": "idUser",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Web user id"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"USER_NOT_EXISTS\",\n    \"error_message\": \"This id user does not exist or was deleted.\"\n  }\n}"
+								},
+								{
+									"name": "Too many requests from this IP, please try again in a few minutes.",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "{{vault:bearer-token}}",
+												"description": "(Required) {{vault:bearer-token}}"
+											},
+											{
+												"key": "Accept",
+												"value": "application/json"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/user/:idUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"user",
+												":idUser"
+											],
+											"variable": [
+												{
+													"key": "idUser",
+													"value": "magna mollit culpa sunt",
+													"description": "(Required) Web user id"
+												}
+											]
+										}
+									},
+									"status": "Too Many Requests",
+									"code": 429,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Name\": \"Maria\",\n  \"MiddleName\": \"Tomson\",\n  \"LastName\": \"\",\n  \"Mail\": \"a4@a.com\",\n  \"Password\": \"yourPass\",\n  \"Info\": \"INFO EXAMPLE\",\n  \"Telephone1\": \"3892\",\n  \"Telephone2\": \"\",\n  \"Label1\": \"test api\",\n  \"Label2\": \"\",\n  \"Label3\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "Create a web user."
+					},
+					"response": [
+						{
+							"name": "Created user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Maria\",\n  \"MiddleName\": \"Tomson\",\n  \"LastName\": \"\",\n  \"Mail\": \"a4@a.com\",\n  \"Password\": \"yourPass\",\n  \"Info\": \"INFO EXAMPLE\",\n  \"Telephone1\": \"3892\",\n  \"Telephone2\": \"\",\n  \"Label1\": \"test api\",\n  \"Label2\": \"\",\n  \"Label3\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": [\n    {\n      \"ID\": \"7obnZ\",\n      \"Name\": \"Jonh\",\n      \"MiddleName\": \"Doe\",\n      \"LastName\": \"\",\n      \"CreationDate\": \"2023-07-11 18:48:03\",\n      \"LastAccess\": null,\n      \"Mail\": \"a3@dataprius.com\",\n      \"Info\": \"\",\n      \"Telephone1\": \"\",\n      \"Telephone2\": \"\",\n      \"Label1\": \"\",\n      \"Label2\": \"\",\n      \"Label3\": \"\"\n    }\n  ]\n}"
+						},
+						{
+							"name": "User already exists. Can not create.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Maria\",\n  \"MiddleName\": \"Tomson\",\n  \"LastName\": \"\",\n  \"Mail\": \"a4@a.com\",\n  \"Password\": \"yourPass\",\n  \"Info\": \"INFO EXAMPLE\",\n  \"Telephone1\": \"3892\",\n  \"Telephone2\": \"\",\n  \"Label1\": \"test api\",\n  \"Label2\": \"\",\n  \"Label3\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"USER_EXISTS\",\n    \"error_message\": \"Error creating user. Already exists.\"\n  }\n}"
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Maria\",\n  \"MiddleName\": \"Tomson\",\n  \"LastName\": \"\",\n  \"Mail\": \"a4@a.com\",\n  \"Password\": \"yourPass\",\n  \"Info\": \"INFO EXAMPLE\",\n  \"Telephone1\": \"3892\",\n  \"Telephone2\": \"\",\n  \"Label1\": \"test api\",\n  \"Label2\": \"\",\n  \"Label3\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Name\": \"Maria\",\n  \"MiddleName\": \"Tomson\",\n  \"LastName\": \"\",\n  \"Mail\": \"a4@a.com\",\n  \"Password\": \"yourPass\",\n  \"Info\": \"INFO EXAMPLE\",\n  \"Telephone1\": \"3892\",\n  \"Telephone2\": \"\",\n  \"Label1\": \"test api\",\n  \"Label2\": \"\",\n  \"Label3\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/user",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user"
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": ""
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users?Page=Page=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "Page",
+									"value": "Page=1",
+									"description": "Page number. By default the request get Page 1."
+								}
+							]
+						},
+						"description": "List web users from your Dataprius account."
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users?Page=Page=1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "Page",
+											"value": "Page=1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": [\n    {\n      \"ID\": \"7obnZ\",\n      \"Name\": \"Jonh\",\n      \"MiddleName\": \"Doe\",\n      \"LastName\": \"\",\n      \"CreationDate\": \"2023-07-11 18:48:03\",\n      \"LastAccess\": null,\n      \"Mail\": \"a3@dataprius.com\",\n      \"Info\": \"\",\n      \"Telephone1\": \"\",\n      \"Telephone2\": \"\",\n      \"Label1\": \"\",\n      \"Label2\": \"\",\n      \"Label3\": \"\"\n    }\n  ],\n  \"meta\": {\n    \"pagination\": {\n      \"total_pages\": 1,\n      \"current_page\": 1,\n      \"total_results\": 1\n    }\n  }\n}"
+						},
+						{
+							"name": "Invalid page number",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users?Page=Page=1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "Page",
+											"value": "Page=1"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BAD_PAGE\",\n    \"error_message\": \"Invalid value for Page number. Greater than total pages.\"\n  }\n}"
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users?Page=Page=1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "Page",
+											"value": "Page=1"
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{vault:bearer-token}}",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users?Page=Page=1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users"
+									],
+									"query": [
+										{
+											"key": "Page",
+											"value": "Page=1"
+										}
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+						}
+					]
+				}
+			],
+			"description": "**User Management.**\n\nManage web user accounts (your clients or external users) within the system. This section enables administrators to create, update, and delete web user profiles."
+		},
+		{
+			"name": "get-oauth-token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/oauth/token",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"oauth",
+						"token"
+					]
+				},
+				"description": "This is an Oauth2 basic authentication.\n\nTo get an access token you will need the account’s Api keys. These are \"clientId\" and \"clientSecret\" credentials. You can get them from your Dataprius account configuration.\n\n If you do not have a Dataprius account, go to the website, download and install the <a href=\"https://dataprius.com/descargas\">Free Version</a>. Once the application is installed. Go to the button in the lower left corner.\n\n Click Start -> Configuration -> API Keys\n\nThere you can request API keys. There is a activation process. After that, you will see API Keys on the same window in Configuration.\n\nThe Basic Authorization\n\nAs is standard in basic access authentication, the header’s structure corresponds to Authorization Basic credentials, where credentials is the result of:\n\nJoining clientId and clientSecret by a single colon (:) Applying Base64 (URL safe mode) to the result.\n\nBasic Credentials is the result of base64(clientId + \":\" + clientSecret)"
+			},
+			"response": [
+				{
+					"name": "OK",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{vault:basic-auth}}",
+								"description": "(Required) Basic Authorization"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/oauth/token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"token_type\": \"bearer\",\n  \"created_at\": 1687944522153,\n  \"access_token\": \"a492954ebad2187063fa5e09854bfd8222ad3fc3\",\n  \"refresh_token\": \"405bc5a2bcb5c026afed160085952ef37bb2d709\",\n  \"expires_in\": 1687944529353\n}"
+				},
+				{
+					"name": "The Bearer access token expired",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{vault:basic-auth}}",
+								"description": "(Required) Basic Authorization"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/oauth/token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+				},
+				{
+					"name": "Too many requests from this IP, please try again in a few minutes.",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{vault:basic-auth}}",
+								"description": "(Required) Basic Authorization"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/oauth/token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"status": "Too Many Requests",
+					"code": 429,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"error\": {\n    \"error_code\": \"LIMIT_REQUEST\",\n    \"error_message\": \"Too many requests from this IP, please try again in a few minutes.\"\n  }\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://api.v2.dataprius.com"
+		}
+	]
+}
