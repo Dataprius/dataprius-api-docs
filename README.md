@@ -24,3 +24,8 @@ Dataprius is a cloud-based intranet solution designed for businesses. It offers 
     
 For more information, visit the Dataprius website.
 https://dataprius.com
+
+
+Usage example
+
+https://github.com/Dataprius/dataprius-api-php
