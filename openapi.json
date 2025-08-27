@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "244ea244-c2e5-48f8-b82f-2723038262d5",
 		"name": "Dataprius API v2",
-		"description": "<img src=\"https://content.pstmn.io/907ee022-59b4-43ba-9a30-ba52e2d2b74b/bG9nby0yODB4MTAwLnBuZw==\">\n\nDataprius offers a different way to work with files in the Cloud. It is designed for companies. It allows you to work with company files without synchronizing, without conflicts, with multiple Users connected at the same time.\n\nDataprius web site: [[English]](https://dataprius.com/en/home.html) [[Spanish]](https://dataprius.com)  \nContact Support: [info@dataprius.com](https://mailto:info@dataprius.com)\n\n## Introduction\n\nDataprius's API is organized around REST. It uses built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients. JSON is returned in all API responses, including errors.\n\n## Getting started\n\nYou will need a Dataprius account and API keys. If you do not have a Dataprius account, go to the website, download and install the free version. You can download from the web in english or spanish.\n\n- [Dataprius downloads in english](https://dataprius.com/en/downloads)\n    \n- [Dataprius downloads in spanish](https://dataprius.com/descargas)\n    \n\nOnce the application is installed. Go to the button in the lower left corner.\n\n- Click Start -> Configuration -> API Keys\n    \n\nThere you can request API keys. There is a activation process.  \nDataprius will send you an email when your request have been validated, then your keys will be available. After that, you can see API Keys on the same window in Configuration.",
+		"description": "<a href=\"https://dataprius.com/en/home.html\"><img src=\"https://content.pstmn.io/907ee022-59b4-43ba-9a30-ba52e2d2b74b/bG9nby0yODB4MTAwLnBuZw==\"></a>\n\nDataprius offers a different way to work with files in the Cloud. It is designed for companies. It allows you to work with company files without synchronizing, without conflicts, with multiple Users connected at the same time.\n\nDataprius web site: [[English]](https://dataprius.com/en/home.html) [[Spanish]](https://dataprius.com)  \nContact Support: [https://dataprius.com/en/contact.html](https://dataprius.com/en/contact.html)\n\n## Introduction\n\nDataprius's API is organized around REST. It uses built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients. JSON is returned in all API responses, including errors.\n\n## Getting started\n\nYou will need a Dataprius account and API keys. If you do not have a Dataprius account, go to the website, download and install the free version. You can download from the web in english or spanish.\n\n- [Dataprius downloads in english](https://dataprius.com/en/downloads)\n    \n- [Dataprius downloads in spanish](https://dataprius.com/descargas)\n    \n\nOnce the application is installed. Go to the button in the lower left corner.\n\n- Click Start -> Configuration -> API Keys\n    \n\nThere you can request API keys. There is a activation process.  \nDataprius will send you an email when your request have been validated, then your keys will be available. After that, you can see API Keys on the same window in Configuration.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "27443231",
 		"_collection_link": "https://www.postman.com/dataprius-cloud/dataprius/collection/a9kvcfs/dataprius-api-v2?action=share&source=collection_link&creator=27443231"
@@ -605,7 +605,7 @@
 							"variable": [
 								{
 									"key": "idFolder",
-									"value": "magna mollit culpa sunt",
+									"value": "8s928k",
 									"description": "(Required) Folder ID"
 								}
 							]
@@ -2497,12 +2497,18 @@
 				{
 					"name": "File upload",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{vault:authorization-secret}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [
-							{
-								"key": "Content-Type",
-								"value": "multipart/form-data"
-							},
 							{
 								"key": "Accept",
 								"value": "application/json"
@@ -2513,7 +2519,7 @@
 							"formdata": [
 								{
 									"key": "IDFolder",
-									"value": "string",
+									"value": "awxvjM",
 									"description": "(Required) ",
 									"type": "text"
 								},
@@ -2521,7 +2527,7 @@
 									"key": "file",
 									"description": "(Required) ",
 									"type": "file",
-									"src": []
+									"src": "6TlyhZgto/rcd-mail.png"
 								}
 							]
 						},
@@ -3788,6 +3794,259 @@
 			"description": "File Operations\n\nHandle file-related operations within your cloud storage. This section provides endpoints to upload, download, rename, and delete files."
 		},
 		{
+			"name": "search",
+			"item": [
+				{
+					"name": "Search files and folders",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{vault:authorization-secret}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"Query\": \"hello\",\n  \"RootFolderId\": \"0\",\n  \"IncFolders\": true,\n  \"ByTags\": false\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.v2.dataprius.com/search",
+							"protocol": "https",
+							"host": [
+								"api",
+								"v2",
+								"dataprius",
+								"com"
+							],
+							"path": [
+								"search"
+							]
+						},
+						"description": "Search folders and files by name or by file Tags.\r\nSearch in all the Dataprius account or from a folder and its subfolders.\r\nMax results: 500.\r\nSearch in the application: [https://manual.dataprius.com/en/search-for-files-and-folders/](url)\r\n"
+					},
+					"response": [
+						{
+							"name": "OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "string",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Query\": \"John\",\n  \"RootFolderId\": \"0\",\n  \"IncFolders\": false,\n  \"ByTags\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.v2.dataprius.com/search",
+									"protocol": "https",
+									"host": [
+										"api",
+										"v2",
+										"dataprius",
+										"com"
+									],
+									"path": [
+										"search"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": {\n    \"folders\": [\n      {\n        \"IDFolder\": \"X3l2nB\",\n        \"Parent\": \"0vpZeO\",\n        \"Name\": \"Administration\",\n        \"Path\": \"FOLDERS/Administration\",\n        \"Created\": \"2024-01-17T17:43:46.000Z\",\n        \"Modified\": \"2024-03-25T12:31:16.000Z\"\n      },\n      {\n        \"IDFolder\": \"xWOB8W\",\n        \"Parent\": \"0vpZeO\",\n        \"Name\": \"Billing\",\n        \"Path\": \"FOLDERS/Billing\",\n        \"Created\": \"2024-01-17T17:43:46.000Z\",\n        \"Modified\": \"2024-03-25T12:31:16.000Z\"\n      }\n    ],\n    \"files\": [\n      {\n        \"IDFile\": \"X3lXnB\",\n        \"Name\": \"Administration\",\n        \"IDFolder\": \"0vpZeO\",\n        \"Path\": \"FOLDERS/Administration\",\n        \"Bytes\": 389283,\n        \"Created\": \"2024-01-17T17:43:46.000Z\",\n        \"Modified\": \"2024-03-25T12:31:16.000Z\",\n        \"Accessed\": \"2024-03-25T12:31:16.000Z\"\n      },\n      {\n        \"IDFile\": \"xWOB8W\",\n        \"Parent\": \"0vpZeO\",\n        \"Name\": \"Billing\",\n        \"Path\": \"FOLDERS/Billing\",\n        \"Bytes\": 2322,\n        \"Created\": \"2024-01-17T17:43:46.000Z\",\n        \"Modified\": \"2024-03-25T12:31:16.000Z\",\n        \"Accessed\": \"2024-03-25T12:31:16.000Z\"\n      },\n      {\n        \"IDFile\": \"6GlAKy\",\n        \"Parent\": \"0vpZeO\",\n        \"Name\": \"Proyects\",\n        \"Path\": \"FOLDERS/Proyects\",\n        \"Bytes\": 39823,\n        \"Created\": \"2024-01-17T17:43:46.000Z\",\n        \"Modified\": \"2024-03-25T12:31:16.000Z\",\n        \"Accessed\": \"2024-03-25T12:31:16.000Z\"\n      }\n    ]\n  },\n  \"meta\": {\n    \"total_results\": 5,\n    \"total_folders\": 2,\n    \"total_files\": 3\n  }\n}"
+						},
+						{
+							"name": "The Bearer access token expired",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "string",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Query\": \"John\",\n  \"RootFolderId\": \"0\",\n  \"IncFolders\": false,\n  \"ByTags\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.v2.dataprius.com/search",
+									"protocol": "https",
+									"host": [
+										"api",
+										"v2",
+										"dataprius",
+										"com"
+									],
+									"path": [
+										"search"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"BEARER_EXPIRED\",\n    \"error_message\": \"The access token expired\"\n  }\n}"
+						},
+						{
+							"name": "Folder does not exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "string",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Query\": \"John\",\n  \"RootFolderId\": \"0\",\n  \"IncFolders\": false,\n  \"ByTags\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.v2.dataprius.com/search",
+									"protocol": "https",
+									"host": [
+										"api",
+										"v2",
+										"dataprius",
+										"com"
+									],
+									"path": [
+										"search"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"FOLDER_NOT_EXISTS\",\n    \"error_message\": \"This id folder does not exist.\"\n  }\n}"
+						},
+						{
+							"name": "Too many requests from this IP, please try again in a few minutes.\r\nSearch in progress. Please wait a few seconds before trying again.",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "string",
+										"description": "(Required) {{vault:bearer-token}}"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"Query\": \"John\",\n  \"RootFolderId\": \"0\",\n  \"IncFolders\": false,\n  \"ByTags\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://api.v2.dataprius.com/search",
+									"protocol": "https",
+									"host": [
+										"api",
+										"v2",
+										"dataprius",
+										"com"
+									],
+									"path": [
+										"search"
+									]
+								}
+							},
+							"status": "Too Many Requests",
+							"code": 429,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"error\": {\n    \"error_code\": \"SEARCH_BUSY\",\n    \"error_message\": \"Search in progress. Please wait a few seconds before trying again.\"\n  }\n}"
+						}
+					]
+				}
+			],
+			"description": "Search operations. Search by files or folders."
+		},
+		{
 			"name": "user",
 			"item": [
 				{
@@ -4474,7 +4733,8 @@
 								}
 							]
 						}
-					]
+					],
+					"description": "Get user by ID"
 				},
 				{
 					"name": "Create user",
@@ -4934,7 +5194,7 @@
 						"token"
 					]
 				},
-				"description": "This is an Oauth2 basic authentication.\n\nTo get an access token you will need the account’s Api keys. These are \"clientId\" and \"clientSecret\" credentials. You can get them from your Dataprius account configuration.\n\n If you do not have a Dataprius account, go to the website, download and install the <a href=\"https://dataprius.com/descargas\">Free Version</a>. Once the application is installed. Go to the button in the lower left corner.\n\n Click Start -> Configuration -> API Keys\n\nThere you can request API keys. There is a activation process. After that, you will see API Keys on the same window in Configuration.\n\nThe Basic Authorization\n\nAs is standard in basic access authentication, the header’s structure corresponds to Authorization Basic credentials, where credentials is the result of:\n\nJoining clientId and clientSecret by a single colon (:) Applying Base64 (URL safe mode) to the result.\n\nBasic Credentials is the result of base64(clientId + \":\" + clientSecret)"
+				"description": "This is an Oauth2 basic authentication.\n\nTo get an access token you will need the account’s Api keys. These are \"clientId\" and \"clientSecret\" credentials. You can get them from your Dataprius account configuration.\n\nIf you do not have a Dataprius account, go to the website, download and install the\n\n<a href=\"https://dataprius.com/descargas\">Free Version</a>\n\n. Once the application is installed. Go to the button in the lower left corner.\n\nClick Start -> Configuration -> API Keys\n\nThere you can request API keys. There is a activation process. After that, you will see API Keys on the same window in Configuration.\n\nThe Basic Authorization\n\nAs is standard in basic access authentication, the header’s structure corresponds to Authorization Basic credentials, where credentials is the result of:\n\nJoining clientId and clientSecret by a single colon (:) Applying Base64 (URL safe mode) to the result.\n\nBasic Credentials is the result of base64(clientId + \":\" + clientSecret)"
 			},
 			"response": [
 				{
