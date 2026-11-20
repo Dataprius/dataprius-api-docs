@@ -2197,7 +2197,8 @@
                           "Telephone2": "",
                           "Label1": "",
                           "Label2": "",
-                          "Label3": ""
+                          "Label3": "",
+                          "NIF": ""
                         }
                       ],
                       "meta": {
@@ -2259,6 +2260,9 @@
                           },
                           "Label3": {
                             "type": "string"
+                          },
+                          "NIF": {
+                            "type": "string"
                           }
                         }
                       }
@@ -2301,7 +2305,8 @@
                           "Telephone2": "",
                           "Label1": "",
                           "Label2": "",
-                          "Label3": ""
+                          "Label3": "",
+                          "NIF": ""
                         }
                       ],
                       "meta": {
@@ -2385,7 +2390,8 @@
                           "Telephone2": "",
                           "Label1": "",
                           "Label2": "",
-                          "Label3": ""
+                          "Label3": "",
+                          "NIF": ""
                         }
                       ]
                     }
@@ -2440,6 +2446,9 @@
                           },
                           "Label3": {
                             "type": "string"
+                          },
+                          "NIF": {
+                            "type": "string"
                           }
                         }
                       }
@@ -2463,7 +2472,8 @@
                           "Telephone2": "",
                           "Label1": "",
                           "Label2": "",
-                          "Label3": ""
+                          "Label3": "",
+                          "NIF": ""
                         }
                       ]
                     }
@@ -2549,7 +2559,8 @@
                     "Telephone2": "",
                     "Label1": "",
                     "Label2": "",
-                    "Label3": ""
+                    "Label3": "",
+                    "NIF": ""
                   }
                 },
                 "properties": {
@@ -2594,6 +2605,9 @@
                   },
                   "Label3": {
                     "type": "string"
+                  },
+                  "NIF": {
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -2616,7 +2630,8 @@
                     "Telephone2": "",
                     "Label1": "test api",
                     "Label2": "",
-                    "Label3": ""
+                    "Label3": "",
+                    "NIF": ""
                   }
                 }
               }
@@ -2724,7 +2739,8 @@
                     "Telephone2": "",
                     "Label1": "test api",
                     "Label2": "",
-                    "Label3": ""
+                    "Label3": "",
+                    "NIF": ""
                   }
                 },
                 "properties": {
@@ -2766,6 +2782,9 @@
                   },
                   "Label3": {
                     "type": "string"
+                  },
+                  "NIF": {
+                    "type": "string"
                   }
                 },
                 "required": [
@@ -2788,7 +2807,8 @@
                     "Telephone2": "",
                     "Label1": "test api",
                     "Label2": "",
-                    "Label3": ""
+                    "Label3": "",
+                    "NIF": ""
                   }
                 }
               }
@@ -3666,7 +3686,8 @@
                       "Telephone2": "",
                       "Label1": "",
                       "Label2": "",
-                      "Label3": ""
+                      "Label3": "",
+                      "NIF": ""
                     }
                   ]
                 }
@@ -3721,6 +3742,9 @@
                       },
                       "Label3": {
                         "type": "string"
+                      },
+                      "NIF": {
+                        "type": "string"
                       }
                     }
                   }
@@ -3744,7 +3768,8 @@
                       "Telephone2": "",
                       "Label1": "",
                       "Label2": "",
-                      "Label3": ""
+                      "Label3": "",
+                      "NIF": ""
                     }
                   ]
                 }
