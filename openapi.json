@@ -24,11 +24,24 @@
       "url": "https://api.v2.dataprius.com"
     }
   ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "paths": {
     "/oauth/token": {
       "get": {
-        "summary": "",
+        "summary": "Get access token",
         "operationId": "get-oauth-token",
+        "tags": [
+          "Authentication"
+        ],
+        "security": [
+          {
+            "basicAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -38,19 +51,24 @@
                   "type": "object",
                   "properties": {
                     "token_type": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Always \"bearer\"."
                     },
                     "created_at": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "Moment the token was issued (Unix time in milliseconds)."
                     },
                     "access_token": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Token to send as Bearer in all other requests."
                     },
                     "refresh_token": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "Single-use token to get a new access_token."
                     },
                     "expires_in": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "Moment the access_token expires (Unix time in milliseconds). It is created_at + 2 hours."
                     }
                   },
                   "x-examples": {
@@ -59,7 +77,7 @@
                       "created_at": 1687944522153,
                       "access_token": "a492954ebad2187063fa5e09854bfd8222ad3fc3",
                       "refresh_token": "405bc5a2bcb5c026afed160085952ef37bb2d709",
-                      "expires_in": 1687944529353
+                      "expires_in": 1687951722153
                     }
                   }
                 },
@@ -70,7 +88,7 @@
                       "created_at": 1687944522153,
                       "access_token": "a492954ebad2187063fa5e09854bfd8222ad3fc3",
                       "refresh_token": "405bc5a2bcb5c026afed160085952ef37bb2d709",
-                      "expires_in": 1687944529353
+                      "expires_in": 1687951722153
                     }
                   }
                 }
@@ -84,20 +102,41 @@
             "$ref": "#/components/responses/429-Too-many-request"
           }
         },
-        "description": "This is an Oauth2 basic authentication.\n\nTo get an access token you will need the account’s Api keys. These are \"clientId\" and \"clientSecret\" credentials. You can get them from your Dataprius account configuration.\n\n If you do not have a Dataprius account, go to the website, download and install the <a href=\"https://dataprius.com/descargas\">Free Version</a>. Once the application is installed. Go to the button in the lower left corner.\n\n Click Start -> Configuration -> API Keys\n\nThere you can request API keys. There is a activation process. After that, you will see API Keys on the same window in Configuration.\n\nThe Basic Authorization\n\nAs is standard in basic access authentication, the header’s structure corresponds to Authorization Basic credentials, where credentials is the result of:\n\nJoining clientId and clientSecret by a single colon (:) Applying Base64 (URL safe mode) to the result.\n\nBasic Credentials is the result of base64(clientId + \":\" + clientSecret)",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "default": "Basic",
-              "example": "Basic MjUwZjBmYTVkN2VlYzNiN2QyZDE6ZWJhZTA2NDcxZTliMDA0YTYyNWJkM2M4NDU5ZGZmN2YwZjc2=="
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Basic Authorization"
+        "description": "Gets an access token (OAuth2) using the account's API keys (`clientId` and `clientSecret`).\n\n**How to get the keys:** in the Dataprius desktop app go to Start -> Configuration -> API Keys. Any user of the account (administrator or colleague) can request their keys there.\n\nIf you do not have a Dataprius account, download the Free Version: https://dataprius.com/descargas\n\n**Basic authorization:** send `Authorization: Basic <credentials>`, where credentials is `base64(clientId + \":\" + clientSecret)` (URL-safe base64).\n\n**Token validity:** the `access_token` is valid for 2 hours. `created_at` and `expires_in` are Unix timestamps in milliseconds. `expires_in` is the moment the token expires (`created_at` + 2 hours), not a duration.\n\n**Refresh the token:** call this same endpoint with the same Basic header and a JSON body `{\"grant_type\": \"refresh_token\", \"refresh_token\": \"<refresh_token>\"}`. The response is a new token pair. Each `refresh_token` can be used only once: when used, the previous `refresh_token` and `access_token` stop working. If it expired or was already used, the API returns 401 with `REFRESCH_EXPIRED`; request a new token with your keys.\n\nUse the returned `access_token` as `Authorization: Bearer <access_token>` in all other requests.",
+        "requestBody": {
+          "required": false,
+          "description": "Only to refresh a token. Omit it to get a new token with the Basic credentials.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "grant_type": {
+                    "type": "string",
+                    "enum": [
+                      "refresh_token"
+                    ]
+                  },
+                  "refresh_token": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "grant_type",
+                  "refresh_token"
+                ]
+              },
+              "examples": {
+                "Refresh token": {
+                  "value": {
+                    "grant_type": "refresh_token",
+                    "refresh_token": "405bc5a2bcb5c026afed160085952ef37bb2d709"
+                  }
+                }
+              }
+            }
           }
-        ]
+        }
       }
     },
     "/folders/list/0": {
@@ -231,18 +270,6 @@
           }
         },
         "description": "List root folder of your Dataprius account. You can get the subfolder references to navigate.",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -471,18 +498,6 @@
           "description": "Page is not required. By default get the page 1."
         },
         "description": "List a folder of your Dataprius account. You can get the subfolder references to navigate.",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "tags": [
           "Folders"
         ],
@@ -733,18 +748,6 @@
           },
           "description": "Page is not required. By default get the page 1."
         },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "tags": [
           "Folders"
         ],
@@ -859,18 +862,6 @@
           }
         },
         "operationId": "get-folders-info-idFolder",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "x-internal": false,
         "description": "Get folder information."
       }
@@ -898,16 +889,6 @@
           "id": "3ihvcos7v6md3"
         },
         "description": "Get folder information from a Path parameter",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "header",
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a",
-            "name": "Authorization"
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1022,18 +1003,6 @@
           },
           "description": "Name of the new subfolder"
         },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "tags": [
           "Folders"
         ],
@@ -1130,18 +1099,6 @@
           },
           "description": "A folder path to create. (Folders separated by / )"
         },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "tags": [
           "Folders"
         ],
@@ -1220,18 +1177,6 @@
           }
         },
         "description": "Rename folder.\nThrows an error if a folder with same name already exists. Forbidden chars in Windows are not allowed.\n\nForbidden chars\n\n    < (less than)\n    > (greater than)\n    : (colon)\n    \" (double quote)\n    / (forward slash)\n    \\ (backslash)\n    | (vertical bar or pipe)\n    ? (question mark)\n    * (asterisk)\n",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1338,21 +1283,6 @@
           }
         },
         "description": "Delete folder\nThe folder not permanently deleted. The folder goes to the recycle bin of the Dataprius account.",
-        "requestBody": {
-          "content": {}
-        },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "tags": [
           "Folders"
         ]
@@ -1418,18 +1348,6 @@
           }
         },
         "description": "Upload a file into a folder.\n\nIf the file already exists, it will be overwritten. An autocopy (backup copy of the previous version) will be generated at a minimum interval of 30 minutes.\n\nMaximum file size is 2 gigabytes.",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
@@ -1504,18 +1422,6 @@
           }
         },
         "operationId": "get-files-info-idFolder",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "x-internal": false,
         "description": "Get file information."
       }
@@ -1539,24 +1445,26 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "OK. File content.",
             "headers": {
-              "Content-Type: application/octet-stream": {
+              "Content-Type": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "description": "application/octet-stream"
               },
-              "Content-Disposition: attachment; filename=\"Dossier.docx\"": {
+              "Content-Disposition": {
                 "schema": {
                   "type": "string"
-                }
+                },
+                "description": "attachment; filename=\"Dossier.docx\""
               }
             },
             "content": {
               "application/octet-stream": {
                 "schema": {
-                  "type": "object",
-                  "properties": {}
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -1572,18 +1480,6 @@
           }
         },
         "operationId": "get-files-download-idFile",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "x-internal": false,
         "description": "Download file.\r\n\r\nExample:\r\n```json\r\ncurl -X GET https://api.v2.dataprius.com/files/download/5ejdGqK \\\r\n    -H \"Accept: application/octet-stream, application/json\" \\\r\n    -H \"Authorization: Bearer xxxxxxx\" \\\r\n    -H \"Content-Type: application/octet-stream\" \\\r\n    -H \"Content-Disposition: attachment;\" \\\r\n    --output \"c:\\Users\\John\\Downloads\\Dossier.docx\"\r\n```"
       }
@@ -1667,18 +1563,6 @@
           }
         },
         "description": "Rename file.\nThrows an error if a file with same name already exists. Forbidden chars in Windows are not allowed.\n\nForbidden chars\n\n    < (less than)\n    > (greater than)\n    : (colon)\n    \" (double quote)\n    / (forward slash)\n    \\ (backslash)\n    | (vertical bar or pipe)\n    ? (question mark)\n    * (asterisk)\n",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1784,18 +1668,6 @@
             "$ref": "#/components/responses/429-Too-many-request"
           }
         },
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "tags": [
           "Files"
         ],
@@ -2086,17 +1958,6 @@
           "id": "bg01lbu5rksnt"
         },
         "description": "Search folders and files by name or by file Tags.\r\nSearch in all the Dataprius account or from a folder and its subfolders.\r\nMax results: 500.\r\nSearch in the application: [https://manual.dataprius.com/en/search-for-files-and-folders/](url)\r\n",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a",
-            "required": true
-          }
-        ],
         "requestBody": {
           "description": "",
           "content": {
@@ -2187,8 +2048,8 @@
                         {
                           "ID": "7obnZ",
                           "Name": "Jonh",
-                          "Surname1": "Doe",
-                          "Surname2": "",
+                          "MiddleName": "Doe",
+                          "LastName": "",
                           "CreationDate": "2023-07-11 18:48:03",
                           "LastAccess": null,
                           "Mail": "a3@dataprius.com",
@@ -2262,7 +2123,10 @@
                             "type": "string"
                           },
                           "NIF": {
-                            "type": "string"
+                            "type": "string",
+                            "x-stoplight": {
+                              "id": "ayqgwvn7gtio6"
+                            }
                           }
                         }
                       }
@@ -2337,27 +2201,13 @@
           {
             "schema": {
               "type": "string",
-              "example": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          },
-          {
-            "schema": {
-              "type": "string",
-              "example": "Page=1"
+              "example": "1"
             },
             "in": "query",
             "name": "Page",
             "description": "Page number. By default the request get Page 1."
           }
         ],
-        "requestBody": {
-          "content": {},
-          "description": "Page is not required. By default the request get Page 1."
-        },
         "tags": [
           "Users"
         ]
@@ -2380,8 +2230,8 @@
                         {
                           "ID": "7obnZ",
                           "Name": "Jonh",
-                          "Surname1": "Doe",
-                          "Surname2": "",
+                          "MiddleName": "Doe",
+                          "LastName": "",
                           "CreationDate": "2023-07-11 18:48:03",
                           "LastAccess": null,
                           "Mail": "a3@dataprius.com",
@@ -2448,7 +2298,10 @@
                             "type": "string"
                           },
                           "NIF": {
-                            "type": "string"
+                            "type": "string",
+                            "x-stoplight": {
+                              "id": "mnfa5tnx64w24"
+                            }
                           }
                         }
                       }
@@ -2531,18 +2384,6 @@
           }
         },
         "description": "Create a web user.",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "required": true,
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -2551,8 +2392,8 @@
                 "x-examples": {
                   "Example 1": {
                     "Name": "a3",
-                    "Surname1": "a3",
-                    "Surname2": "",
+                    "MiddleName": "a3",
+                    "LastName": "",
                     "Mail": "a3@a.com",
                     "Info": "",
                     "Telephone1": "",
@@ -2607,7 +2448,8 @@
                     "type": "string"
                   },
                   "NIF": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "Tax ID (NIF) of the web user. Optional."
                   }
                 },
                 "required": [
@@ -2676,18 +2518,6 @@
           }
         },
         "description": "Get web user information.",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 6342c1c05305301c15027f131888"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a",
-            "required": true
-          }
-        ],
         "tags": [
           "Users"
         ]
@@ -2710,18 +2540,6 @@
           }
         },
         "description": "Update web user",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a",
-            "required": true
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -2730,8 +2548,8 @@
                 "x-examples": {
                   "Example 1": {
                     "Name": "a4",
-                    "Surname1": "surname a4",
-                    "Surname2": "",
+                    "MiddleName": "surname a4",
+                    "LastName": "",
                     "Mail": "a4@a.com",
                     "Password": "yourPass",
                     "Info": "INFO EXAMPLE",
@@ -2743,6 +2561,12 @@
                     "NIF": ""
                   }
                 },
+                "required": [
+                  "Name",
+                  "MiddleName",
+                  "Mail",
+                  "Password"
+                ],
                 "properties": {
                   "Name": {
                     "type": "string"
@@ -2784,15 +2608,12 @@
                     "type": "string"
                   },
                   "NIF": {
-                    "type": "string"
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "wo9br9bl7p4sh"
+                    }
                   }
-                },
-                "required": [
-                  "Name",
-                  "MiddleName",
-                  "Mail",
-                  "Password"
-                ]
+                }
               },
               "examples": {
                 "Update user": {
@@ -2837,18 +2658,6 @@
           }
         },
         "description": "Delete web user",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a",
-            "required": true
-          }
-        ],
         "tags": [
           "Users"
         ]
@@ -2958,18 +2767,6 @@
           "id": "h233vimuo3yxt"
         },
         "description": "Send email invitation to a web user. A system email will be send. \r\nParams:\r\n- IdUser\r\n- MailSubject\r\n- MailBody\r\n",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string",
-              "example": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a",
-            "required": true
-          }
-        ],
         "requestBody": {
           "description": "Required params:\r\n- IdUser\r\n- MailSubject\r\n- MailBody",
           "content": {
@@ -3195,17 +2992,6 @@
           "id": "8w078y2572bm9"
         },
         "description": "Allow or Forbid a folder and subfolders to a Web User.\r\nThrows an error if a folder or the Web Users doesn't exists.",
-        "parameters": [
-          {
-            "schema": {
-              "type": "string"
-            },
-            "in": "header",
-            "name": "Authorization",
-            "description": "Bearer 92e412b547de88dc66368a21e4ebb56d0f813c1a",
-            "required": true
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -3248,7 +3034,18 @@
   },
   "components": {
     "schemas": {},
-    "securitySchemes": {},
+    "securitySchemes": {
+      "basicAuth": {
+        "type": "http",
+        "scheme": "basic",
+        "description": "Only for GET /oauth/token. The credentials are base64(clientId:clientSecret) in URL-safe mode."
+      },
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "The access_token returned by GET /oauth/token. It is valid for 2 hours."
+      }
+    },
     "responses": {
       "Folder-Result": {
         "description": "Folder information",
@@ -3577,6 +3374,14 @@
                     "error_message": "Invalid clientId or clientSecret."
                   }
                 }
+              },
+              "Refresh token expired": {
+                "value": {
+                  "error": {
+                    "error_code": "REFRESCH_EXPIRED",
+                    "error_message": "The refresh_token expired"
+                  }
+                }
               }
             }
           }
@@ -3676,8 +3481,8 @@
                     {
                       "ID": "7obnZ",
                       "Name": "a3",
-                      "Surname1": "a3",
-                      "Surname2": "",
+                      "MiddleName": "a3",
+                      "LastName": "",
                       "CreationDate": "2023-07-11 18:48:03",
                       "LastAccess": null,
                       "Mail": "a3@a.com",
@@ -3744,7 +3549,10 @@
                         "type": "string"
                       },
                       "NIF": {
-                        "type": "string"
+                        "type": "string",
+                        "x-stoplight": {
+                          "id": "7hjlp19it6dqk"
+                        }
                       }
                     }
                   }
