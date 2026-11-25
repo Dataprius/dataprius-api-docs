@@ -5,7 +5,7 @@ REST API to work with files, folders, users and permissions of a Dataprius accou
 - **Base URL:** `https://api.v2.dataprius.com`
 - **Interactive docs (Postman):** https://api.dataprius.org
 - **OpenAPI specification (download):**
-  https://raw.githubusercontent.com/Dataprius/dataprius-api-docs/main/openapi.json
+  https://api.v2.dataprius.com/openapi.json
 - **PHP example:** https://github.com/Dataprius/dataprius-api-php
 
 ## Get your API keys
