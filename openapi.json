@@ -1249,7 +1249,7 @@
 										"value": {
 											"error": {
 												"error_code": "BAD_PARAM",
-												"error_message": "Invalid chars in the name. Check NewName paremeter."
+												"error_message": "Invalid chars in the name. Check NewName parameter."
 											}
 										}
 									},
