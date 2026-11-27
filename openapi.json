@@ -1216,8 +1216,57 @@
 					"202": {
 						"$ref": "#/components/responses/File-info"
 					},
+					"400": {
+						"description": "Invalid request. The file ID is not valid, NewName is empty or NewName contains forbidden characters.",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"error": {
+											"type": "object",
+											"properties": {
+												"error_code": {
+													"type": "string"
+												},
+												"error_message": {
+													"type": "string"
+												}
+											}
+										}
+									}
+								},
+								"examples": {
+									"Empty name": {
+										"value": {
+											"error": {
+												"error_code": "BAD_PARAM",
+												"error_message": "Empty NewName parameter."
+											}
+										}
+									},
+									"Invalid chars": {
+										"value": {
+											"error": {
+												"error_code": "BAD_PARAM",
+												"error_message": "Invalid chars in the name. Check NewName paremeter."
+											}
+										}
+									},
+									"Invalid ID": {
+										"value": {
+											"error": {
+												"error_code": "INVALID_ID",
+												"error_message": "Invalid ID"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
 					"401": {
-						"description": "File already exists or the file is opened by another user.",
+						"description": "A file with the same name already exists in the folder (the comparison ignores upper/lower case, and renaming a file to its own name also returns this error), or the file is opened by another user.",
 						"content": {
 							"application/json": {
 								"schema": {
