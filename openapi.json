@@ -4,7 +4,7 @@
 		"title": "Dataprius API v2",
 		"version": "2.0",
 		"summary": "This is the Dataprius API REST v2",
-		"description": "Dataprius offers a different way to work with files in the Cloud. It is designed for companies. It allows you to work with company files without synchronizing, without conflicts, with multiple Users connected at the same time.",
+		"description": "OpenAPI specification of the Dataprius API v2 (this document): https://api.v2.dataprius.com/openapi.json\n\nAuthentication guide (API keys, tokens, refresh) and examples: https://github.com/Dataprius/dataprius-api-docs\n\nDo not use dataprius.stoplight.io to read the API: it is a JavaScript app that may not render.\n\nDataprius offers a different way to work with files in the Cloud. It is designed for companies. It allows you to work with company files without synchronizing, without conflicts, with multiple Users connected at the same time.\n\nUsing an AI assistant? Dataprius also provides an MCP server (https://mcp.dataprius.com/mcp), documented at https://github.com/Dataprius/dataprius-mcp",
 		"contact": {
 			"name": "Dataprius Team",
 			"url": "https://dataprius.com/contacto.html",
@@ -15,6 +15,10 @@
 			"url": "https://www.gnu.org/licenses/gpl-3.0.en.html"
 		},
 		"termsOfService": "https://dataprius.com/en/dataprius-legal-advice.html"
+	},
+	"externalDocs": {
+		"description": "Authentication guide (API keys, tokens, refresh) and examples",
+		"url": "https://github.com/Dataprius/dataprius-api-docs"
 	},
 	"servers": [
 		{
