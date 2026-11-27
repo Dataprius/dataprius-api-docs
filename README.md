@@ -2,11 +2,16 @@
 
 REST API to work with files, folders, users and permissions of a Dataprius account.
 
+- **OpenAPI specification (JSON, read this first):**
+  https://api.v2.dataprius.com/openapi.json
 - **Base URL:** `https://api.v2.dataprius.com`
 - **Interactive docs (Postman):** https://api.dataprius.org
-- **OpenAPI specification (download):**
-  https://api.v2.dataprius.com/openapi.json
 - **PHP example:** https://github.com/Dataprius/dataprius-api-php
+- **MCP server (use Dataprius from AI assistants):** https://github.com/Dataprius/dataprius-mcp
+
+> **For AI assistants and code generators:** the OpenAPI JSON above is the complete and authoritative
+> specification of every endpoint, parameter and error. Do not use dataprius.stoplight.io to read the API:
+> it is a JavaScript app that may not render. Authentication is explained below.
 
 ## Get your API keys
 
